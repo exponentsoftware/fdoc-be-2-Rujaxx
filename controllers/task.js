@@ -6,7 +6,18 @@ const asyncHandler = require('../middlewares/async')
 // @route     GET /api/v1/tasks
 // @access    Public
 exports.getTasks = asyncHandler(async(req,res,next) => {
-    const tasks = await Task.find();
+  let query 
+
+  query = Task.find(req.query)
+  
+  //Sorting
+  if(req.query.sort){
+    const sortBy = req.query.sort.split(",").join(" ")
+  }else{
+    query = query.sort("-createdAt")
+  }
+
+  const tasks = await query;
     res.status(200).json({
         success : true,
         count : tasks.length,
