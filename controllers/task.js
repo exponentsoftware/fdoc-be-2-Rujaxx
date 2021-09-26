@@ -13,6 +13,7 @@ exports.getTasks = asyncHandler(async(req,res,next) => {
   //Sorting
   if(req.query.sort){
     const sortBy = req.query.sort.split(",").join(" ")
+    query = query.sort(sortBy);
   }else{
     query = query.sort("-createdAt")
   }
@@ -79,7 +80,7 @@ exports.updateTask = asyncHandler(async(req,res,next) => {
 })
 
 
-// @desc      update a task
+// @desc      DELETE a task
 // @route     DELETE /api/v1/tasks/:id
 // @access    Public
 exports.deleteTask = asyncHandler(async(req,res,next) => {
